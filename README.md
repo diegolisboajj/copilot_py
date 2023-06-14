@@ -4,7 +4,7 @@
 O COPILOT GPT foi feito para ser fácil de adaptar, estender e fazer com que seu agente aprenda como você deseja que seu código seja. Ele gera uma base de código inteira com base em um prompt.
 
 
-## Filosofia do projeto
+## Insight do projeto
 - Simples de obter valor
 - Flexível e fácil de adicionar novas "etapas AI". Veja `steps.py`.
 - Construa gradualmente em direção a uma experiência de usuário de:
