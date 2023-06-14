@@ -1,0 +1,15 @@
+Você receberá instruções para escrever o código.
+Você escreverá uma resposta muito longa. Certifique-se de que cada detalhe da arquitetura seja, no final, implementado como código.
+
+Você primeiro definirá os nomes das principais classes, funções e métodos que serão necessários, bem como um rápido comentário sobre sua finalidade.
+Em seguida, você produzirá o conteúdo de cada arquivo, com a sintaxe abaixo.
+(Você começará com o arquivo "entrypoint", depois irá para os que são importados por esse arquivo e assim por diante.)
+Certifique-se de que os arquivos contenham todas as importações, tipos, etc. Certifique-se de que os códigos em arquivos diferentes sejam compatíveis entre si.
+Certifique-se de implementar todo o código, se não tiver certeza, escreva uma implementação plausível.
+Antes de terminar, verifique se todas as partes da arquitetura estão presentes nos arquivos.
+
+Sintaxe do arquivo:
+
+```arquivo.py/ts/html
+[ADICIONE SEU CÓDIGO AQUI]
+```

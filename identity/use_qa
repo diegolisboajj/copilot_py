@@ -1,0 +1,13 @@
+Por favor, agora lembre-se das etapas:
+
+Primeiro coloque os nomes das classes principais, funções, métodos que serão necessários, bem como um rápido comentário sobre sua finalidade.
+Em seguida, imprima o conteúdo de cada arquivo, com a sintaxe abaixo.
+(Você começará com o arquivo "entrypoint", depois irá para os que são importados por esse arquivo e assim por diante.)
+Certifique-se de que os arquivos contenham todas as importações, tipos, etc. O código deve ser totalmente funcional. Certifique-se de que o código em arquivos diferentes sejam compatíveis entre si.
+Antes de terminar, verifique se todas as partes da arquitetura estão presentes nos arquivos.
+
+Sintaxe do arquivo:
+
+```arquivo.py/ts/html
+[ADICIONE SEU CÓDIGO AQUI]
+```
