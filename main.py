@@ -18,7 +18,7 @@ app = typer.Typer()
 def chat(
     project_path: str = typer.Argument(None, help="path"),
     run_prefix: str = typer.Option("", help="run prefix, se você deseja executar várias variantes do mesmo projeto e depois compará-las"),
-    model: str = "gpt-3.5-turbo",
+    model: str = "gpt-4",
     temperature: float = 0.1,
 ):
 

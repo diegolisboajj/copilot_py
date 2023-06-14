@@ -2,6 +2,8 @@ from ai import AI
 from chat_to_files import to_files
 from db import DBs
 import json
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 def setup_sys_prompt(dbs):
     return dbs.identity['setup'] + '\nÚtil saber:\n' + dbs.identity['philosophy']

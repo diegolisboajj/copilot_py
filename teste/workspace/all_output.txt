@@ -1,0 +1,155 @@
+Nomes das classes principais, funções e métodos necessários:
+
+- Server: classe responsável por iniciar o servidor HTTP e lidar com as requisições HTTP.
+  - start(): método que inicia o servidor HTTP.
+
+- Database: classe responsável por se conectar ao banco de dados SQLite e executar consultas SQL.
+  - connect(): método que estabelece a conexão com o banco de dados.
+  - disconnect(): método que encerra a conexão com o banco de dados.
+  - query(sql: str): método que executa uma consulta SQL e retorna os resultados em formato JSON.
+
+- Router: classe responsável por definir as rotas da aplicação e associá-las às funções de tratamento de requisições.
+  - add_route(path: str, method: str, handler: Callable): método que adiciona uma rota à aplicação.
+
+- Handlers: módulo que contém as funções de tratamento de requisições HTTP.
+  - index(request: Request): função que retorna a página HTML com a lista de registros do banco de dados.
+
+- Utils: módulo que contém funções utilitárias.
+  - read_file(path: str): função que lê o conteúdo de um arquivo e retorna uma string.
+
+Conteúdo do arquivo "server.js":
+
+```javascript
+const http = require('http');
+const url = require('url');
+const Database = require('./database');
+const Router = require('./router');
+const Handlers = require('./handlers');
+
+class Server {
+  constructor(port) {
+    this.port = port;
+    this.router = new Router();
+    this.database = new Database();
+  }
+
+  start() {
+    const server = http.createServer((req, res) => {
+      const parsedUrl = url.parse(req.url, true);
+      const route = this.router.find(req.method, parsedUrl.pathname);
+      if (route) {
+        route.handler(req, res, parsedUrl.query);
+      } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found');
+      }
+    });
+
+    this.database.connect();
+    this.router.add_route('/', 'GET', Handlers.index);
+
+    server.listen(this.port, () => {
+      console.log(`Server running at http://localhost:${this.port}/`);
+    });
+  }
+}
+
+module.exports = Server;
+```
+
+Conteúdo do arquivo "database.js":
+
+```javascript
+const sqlite3 = require('sqlite3').verbose();
+
+class Database {
+  constructor() {
+    this.db = null;
+  }
+
+  connect() {
+    this.db = new sqlite3.Database(':memory:');
+    this.db.serialize(() => {
+      this.db.run(`
+        CREATE TABLE IF NOT EXISTS users (
+          id INTEGER PRIMARY KEY,
+          name TEXT,
+          email TEXT
+        )
+      `);
+      this.db.run(`
+        INSERT INTO users (name, email) VALUES
+        ('John Doe', 'john.doe@example.com'),
+        ('Jane Doe', 'jane.doe@example.com')
+      `);
+    });
+  }
+
+  disconnect() {
+    this.db.close();
+  }
+
+  query(sql) {
+    return new Promise((resolve, reject) => {
+      this.db.all(sql, (err, rows) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+  }
+}
+
+module.exports = Database;
+```
+
+Conteúdo do arquivo "router.js":
+
+```javascript
+class Router {
+  constructor() {
+    this.routes = [];
+  }
+
+  add_route(path, method, handler) {
+    this.routes.push({ path, method, handler });
+  }
+
+  find(method, path) {
+    return this.routes.find(route => route.method === method && route.path === path);
+  }
+}
+
+module.exports = Router;
+```
+
+Conteúdo do arquivo "handlers.js":
+
+```javascript
+const Utils = require('./utils');
+
+async function index(request, response) {
+  const content = Utils.read_file('./index.html');
+  const rows = await request.database.query('SELECT * FROM users');
+  const data = JSON.stringify(rows);
+  const html = content.replace('{{ data }}', data);
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.end(html);
+}
+
+module.exports = { index };
+```
+
+Conteúdo do arquivo "utils.js":
+
+```javascript
+const fs = require('fs');
+
+function read_file(path) {
+  return fs.readFileSync(path, 'utf8');
+}
+
+module.exports = { read_file };
+```
