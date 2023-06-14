@@ -63,7 +63,7 @@ STEPS=[
 ]
 
 # Etapas futuras que podem ser adicionadas:
-# inclusao de arquvios,
+# inclusao de arquivos,
 # adicionar testes
 # rodar testes e testar os arquivos,
 # implementar sistema de feedback

@@ -8,8 +8,6 @@ from ai import AI
 from steps import STEPS
 from db import DB, DBs
 import typer
-import sys
-sys.stdout.reconfigure(encoding='utf-8')
 
 app = typer.Typer()
 

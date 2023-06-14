@@ -5,6 +5,8 @@ import typer
 
 from ..ai import AI
 from ..chat_to_files import to_files
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 app = typer.Typer()
 

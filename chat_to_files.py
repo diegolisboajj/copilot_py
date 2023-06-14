@@ -1,5 +1,6 @@
 import re
-
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
 def parse_chat(chat):# -> List[Tuple[str, str]]:
     # Get all ``` blocks
